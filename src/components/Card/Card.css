@@ -1,0 +1,39 @@
+
+.card-not-flipped{
+    display: flex;
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+    transition: 2s;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+.card-flipped{
+    display: flex;
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    transform: rotateY(180deg);
+    transform-style: preserve-3d;
+    transition: 2s;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+.show-text{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    opacity: 1;
+    transition: 2s;
+}
+.hidden-text{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    opacity: 0;
+    transition: 2s;
+}
