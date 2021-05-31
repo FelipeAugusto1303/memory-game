@@ -3,14 +3,16 @@ import Card from '../Card';
 import './Game.css';
 
 const Game = ({ nElements }) => {
-    const [values, setValues] = React.useState([])
+    const [values, setValues] = React.useState([]);
+    const [flag, setFlag] = React.useState(false)
 
     React.useEffect(()=>{
-        generateArray(nElements)
+        setValues(generateArray(nElements))
     },[])
 
     const generateArray = (nElements) => {
         const values = []
+        const jsonValues = []
         for(var i=0;i< nElements*2; i++){
             if(i % 2 === 0){
                 values.push(i/2 + 1)
@@ -20,17 +22,33 @@ const Game = ({ nElements }) => {
             }
             console.log(i)
         }
-        setValues(values.sort(() => Math.random() - 0.5))
+        values.sort(() => Math.random() - 0.5).forEach((element, idx) => {
+            jsonValues.push({
+                "value": element,
+                "flipped": false
+            })
+        })
+        return jsonValues
     }
 
-    const shuffle = ({ values }) => {
 
+    const onFlip = (values,idx) => {
+        console.log("clique!")
+        values[idx].flipped = !values[idx].flipped
+        setValues(values)
+        setFlag(!flag)
     }
+
+    const gameRules = () => {}
 
     return(
         <div className="game-container">
-            {values.map((value, idx) => {
-                return <Card key={idx} value={value}/>
+            {values.map((item, idx) => {
+                return (
+                    values && <div key={idx}>
+                        <Card value={item.value} isFlip={item.flipped} onClick={() => onFlip(values,idx)}/>
+                    </div>
+                )
             })}
             
         </div>

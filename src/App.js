@@ -5,6 +5,7 @@ import './App.css';
 const App = () => {
   return(
     <div className="container">
+      <h1> Memory Game</h1>
       <Game nElements={10}/>
     </div>
   )

@@ -1,19 +1,13 @@
 import React from 'react'
 import './Card.css';
 
-const Card = ({value}) => {
-    const [flip, setFlip] = React.useState(false)
-
-    const onFlip = () => {
-        console.log("clique!")
-        setFlip(!flip)
-    }
+const Card = ({value, isFlip, onClick}) => {
 
     return(
         <div className="card-container">
-            <div className={!flip ? "card-flipped":"card-not-flipped"} 
-                onClick={() => onFlip()}>
-                    <p className={!flip? "hidden-text":"show-text"}>{value}</p>
+            <div className={!isFlip ? "card-flipped":"card-not-flipped"} 
+                onClick={onClick}>
+                    <p className={!isFlip? "hidden-text":"show-text"}>{value}</p>
             </div>
         </div>
     )
