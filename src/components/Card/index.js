@@ -11,9 +11,9 @@ const Card = ({value}) => {
 
     return(
         <div className="card-container">
-            <div className={flip ? "card-flipped":"card-not-flipped"} 
+            <div className={!flip ? "card-flipped":"card-not-flipped"} 
                 onClick={() => onFlip()}>
-                    <p className={flip? "hidden-text":"show-text"}>{value}</p>
+                    <p className={!flip? "hidden-text":"show-text"}>{value}</p>
             </div>
         </div>
     )

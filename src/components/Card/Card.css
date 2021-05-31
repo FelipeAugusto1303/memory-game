@@ -1,4 +1,6 @@
-
+.card-container{
+    margin: 10px
+}
 .card-not-flipped{
     display: flex;
     width: 100px;
