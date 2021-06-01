@@ -1,5 +1,7 @@
 .card-container{
-    margin: 5px
+    margin: 5px;
+    width: 100px;
+    height: 100px;
 }
 .card-not-flipped{
     display: flex;
