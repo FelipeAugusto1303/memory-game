@@ -2,18 +2,35 @@ import React from 'react';
 import Card from '../Card';
 import './Game.css';
 
-const Game = ({ nElements }) => {
+const Game = ({ nElements=10 }) => {
     const [values, setValues] = React.useState([]);
-    const [initValue, setInitValue] = React.useState([])
     const [flag, setFlag] = React.useState(false);
-    const [selectedCards, setSelectedCards] = React.useState([])
     const [disable, setDisable] = React.useState(false)
+    const [points, setPoints] = React.useState(0);
+    const [time, setTime] = React.useState(0);
+    const [hour, setHour] = React.useState(0);
+    const [minute, setMinute] = React.useState(0);
+    const [second, setSecond] = React.useState(0);
 
 
     React.useEffect(()=>{
         const generated = generateArray(nElements)
         setValues(generated)
-        setInitValue(generated)
+        setPoints(0)
+        setTimeout(() => {
+            const timer = setInterval(() => {
+                if(second === 59){
+                    setSecond(0)
+                    if(minute === 59){
+                        setMinute(0)
+                        setHour(prev=>prev+1)
+                    }
+                    else setMinute(prev=>prev+1)
+                }
+                else setSecond(prev=>prev+1)
+            },1000)
+        },1000)
+        
     },[])
 
     React.useEffect(()=>{
@@ -27,6 +44,7 @@ const Game = ({ nElements }) => {
                     values[selectedValues[1].index].flipped = false
                     setValues(values)
                     setDisable(false)
+                    setPoints(prev=>prev+1)
                 }, 2000)
             }
             else{
@@ -78,23 +96,37 @@ const Game = ({ nElements }) => {
         }
     }
 
-    const gameRules = () => {}
+    const showTimer = (time) => {
+        var date = new Date(time *1000)
+        console.log(date)
+        return <div>{date}</div>
+    }
 
     return(
-        <div className="game-container">
-            {values.map((item, idx) => {
-                return (
-                    values && <div key={idx}>
-                        <Card 
-                            value={item.value} 
-                            isFlip={item.flipped} 
-                            onClick={() => onFlip(values,idx, disable)} 
-                            done={item.visible}/>
-                    </div>
-                )
-            })}
-            
+        <div className="game-root">
+            <p>Memory Game</p>
+            {points < nElements && <div>
+                <p>{hour}:{minute}:{second}</p>    
+            </div>}
+            <div className="game-container">
+                {(points < nElements) && values.map((item, idx) => {
+                    return (
+                        values && <div key={idx}>
+                            <Card 
+                                value={item.value} 
+                                isFlip={item.flipped} 
+                                onClick={() => onFlip(values,idx, disable)} 
+                                done={item.visible}/>
+                        </div>
+                    )
+                })}
+                {(points >= nElements) && <div className="congratulations-message">
+                    <p>Congrats!</p>
+                </div>}
+                
+            </div>
         </div>
+        
     )
 }
 
